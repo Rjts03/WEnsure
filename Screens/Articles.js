@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const Register = () => {
+const Articles = () => {
     return (
         <View>
-            <Text>Register</Text>
+            <Text>Articles</Text>
         </View>
     )
 }
 
-export default Register
+export default Articles
