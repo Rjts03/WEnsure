@@ -14,7 +14,7 @@ const registerStyle = StyleSheet.create({
     }
 })
 
-export function AddPolicyScreen(props){
+const AddPolicy = (props) => {
 
     const [data, setData] = useState({});
 
@@ -62,3 +62,5 @@ export function AddPolicyScreen(props){
     </View>
     );
 }
+
+export default AddPolicy;

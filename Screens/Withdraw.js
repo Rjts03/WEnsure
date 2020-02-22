@@ -20,7 +20,7 @@ const paymentStyle = StyleSheet.create({
     }
 })
 
-export function WithdrawMoneyScreen(props) {
+const WithdrawMoney = (props) => {
 
     const [selectedPolicy, setSelectedPolicy] = useState('');
     const [disableButton, setDisableButon] = useState(true);
@@ -46,7 +46,9 @@ export function WithdrawMoneyScreen(props) {
             }
         </Picker>
             <TextInput style={paymentStyle.inputStyle} maxLength={6}  placeholder='Withdraw Money' />
-            <Button disabled = {disableButton} buttonStyle={{marginTop: 30}} title='Withdraw Money'></Button>
+            <Button disabled = {disableButton} buttonStyle={{marginTop: 30, backgroundColor: 'green'}} title='Withdraw Money'></Button>
         </View>
     )
 }
+
+export default WithdrawMoney

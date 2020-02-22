@@ -6,7 +6,7 @@ const PolicyDetail = props => {
     const {navigation, route} = props;
     
     return (
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, margin: 12}}>
             <View style={styles.detailsContainer}>
                 <Text style={styles.title}>
                     {'Policy Number: \t'}
@@ -31,9 +31,21 @@ const PolicyDetail = props => {
             </View>
 
             <View style={styles.buttonContainer}>
-                <Button onPress={() => {}} title="View all Transactions" type='outline' containerStyle={{marginHorizontal: 4}} />
+                <Button
+                    onPress={() => {}}
+                    title="View all Transactions"
+                    type='outline'
+                    titleStyle={{color: 'green'}}
+                    containerStyle={{marginHorizontal: 4, borderColor: 'green'}}
+                />
 
-                <Button title="Pay next Installment" type='outline' containerStyle={{marginHorizontal: 4}} />
+                <Button
+                    title="Pay next Installment"
+                    titleStyle={{color: 'green'}}
+                    type='outline'
+                    containerStyle={{marginHorizontal: 4, borderColor: 'green'}}
+                    onPress={() => navigation.navigate('Pay')}
+                />
             </View>
         </View>
     )

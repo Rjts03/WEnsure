@@ -4,6 +4,7 @@ import PolicyCard from '../Components/PolicyCard'
 import FloatingButton from '../Components/FloatingButton'
 
 const Home = props => {
+    const {navigation} = props;
 
     const renderCard = ({item, index}) => {
         return <PolicyCard policyInfo={item} index={index} {...props} />;
@@ -16,7 +17,7 @@ const Home = props => {
                 keyExtractor={(item, index) => `${item.id}_${index}`}
                 numColumns={2}
             />
-            <FloatingButton />
+            <FloatingButton onPress={() => navigation.navigate('Add Policy')} />
         </View>
     )
 }

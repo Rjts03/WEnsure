@@ -22,10 +22,12 @@ const summaryStyle = StyleSheet.create({
         width: '100%',
         borderWidth: 1,
         borderColor: '#E8E7E7'
-    }
+    },
+    button: {marginTop: 40, alignContent: 'flex-end', backgroundColor: 'green'}
 })
 
-export function SummaryScreen(props) {
+const Summary = (props) => {
+    const {navigation} = props
 
     const data = [{InsuranceProvider: 'abcd', amount_saved: 29},
     {InsuranceProvider: 'abcd', amount_saved: 29}]
@@ -50,7 +52,9 @@ export function SummaryScreen(props) {
                 <Text>Total amount saved</Text>
                 <Text>{total_saved}</Text>
             </View>
-            <Button buttonStyle={{marginTop: 40, alignContent: 'flex-end'}} title="Withdraw before time"/>
+            <Button onPress={() => navigation.navigate('Withdraw Money')} buttonStyle={summaryStyle.button} title="Withdraw before time"/>
         </View>
     )
 }
+
+export default Summary

@@ -20,11 +20,13 @@ const paymentStyle = StyleSheet.create({
     }
 })
 
-export function PaymentScreen(props) {
+const Payment = (props) => {
     return (
         <View style={paymentStyle.container}>
             <TextInput style={paymentStyle.inputStyle} maxLength={6}  placeholder='Add Money' />
-            <Button buttonStyle={{marginTop: 30}} title='pay money'></Button>
+            <Button buttonStyle={{marginTop: 30, backgroundColor: 'green'}} title='pay money'></Button>
         </View>
     )
 }
+
+export default Payment

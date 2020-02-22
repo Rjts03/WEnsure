@@ -13,6 +13,9 @@ import Articles from './Screens/Articles';
 import Summary from './Screens/Summary';
 import Profile from './Screens/Profile';
 import PolicyDetail from './Screens/PolicyDetail';
+import AddPolicy from './Screens/AddPolicy';
+import WithdrawMoney from './Screens/Withdraw';
+import Payment from './Screens/Payment';
 
 const gradientHeader = {
     headerBackground: () => (
@@ -61,6 +64,16 @@ const HomeStack = ({navigation}) => (
             component={Rewards}
             options={{...gradientHeader,}}
         />
+        <Stack.Screen
+            name="Add Policy"
+            component={AddPolicy}
+            options={{...gradientHeader,}}
+        />
+        <Stack.Screen
+            name="Pay"
+            component={Payment}
+            options={{...gradientHeader,}}
+        />
     </Stack.Navigator>
 );
 
@@ -73,6 +86,7 @@ const ReadStack = () => (
 const SummaryStack = () => (
     <Stack.Navigator>
         <Stack.Screen name="Summary" component={Summary} options={{...gradientHeader,}} />
+        <Stack.Screen name="Withdraw Money" component={WithdrawMoney} options={{...gradientHeader,}} />
     </Stack.Navigator>
 );
 
