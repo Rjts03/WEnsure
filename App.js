@@ -6,9 +6,6 @@ export default function App() {
   const [c, setC] = React.useState(0)
   return (
     <View style={styles.container}>
-      <Text>RNEXPOWEB {c}</Text>
-      <Ionicons name="md-checkmark-circle" size={32} color="green" />
-      <TouchableHighlight onPress={() => setC(c+1)}><Text>INC</Text></TouchableHighlight>
     </View>
   );
 }
