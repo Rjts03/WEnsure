@@ -1,9 +1,11 @@
 import React, { Component, useEffect, useState } from 'react';
 import { Button} from 'react-native-elements';
-import {View, StyleSheet, TextInput} from 'react-native';
+import {View, StyleSheet, TextInput, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import { registerUser } from '../utils/request';
+import config from '../config'
+const {uid} = config
 
 const registerStyle = StyleSheet.create({
     inputStyle: {
@@ -25,6 +27,14 @@ const Register = (props) => {
 
     let valueChanged = (type, e) => {
         setData({...data, [type]: e});
+    }
+
+    React.useEffect(() => {
+        checkRegisterStatus()
+    }, [])
+
+    const checkRegisterStatus = async () => {
+        if (uid) props.setRegistered(true);
     }
 
     const register = () => {
@@ -49,7 +59,9 @@ const Register = (props) => {
     }
 
     return (
-      <View style={{ flex: 1, width: '100%', alignItems: "center", justifyContent: 'center',  paddingTop: 60, paddingLeft: 20, paddingRight: 20 }}>
+      <View style={{ flex: 1, width: '100%', alignItems: "center", justifyContent: 'center',  paddingTop: 20, paddingLeft: 20, paddingRight: 20 }}>
+        <Text style={{color: 'green', fontSize: 28}}>WEnsure</Text>
+        <Text style={{color: 'darkgreen', fontSize: 22, marginBottom: 40}}>We Ensure You Save!</Text>
         <TextInput onChangeText = {(e) => valueChanged('name', e)} returnKeyType = { "next" } style={registerStyle.inputStyle} placeholder='Name'/>
         <TextInput maxLength={12} value = {data.aadhar}  onChangeText = {(e) => valueChanged('aadhar', e)} returnKeyType = { "next" }  keyboardType='numeric' style={registerStyle.inputStyle} placeholder='Aadhar ID'/>
         <TextInput onChangeText = {(e) => valueChanged('occupation', e)}  returnKeyType = { "next" } style={registerStyle.inputStyle} placeholder='Occupation'/>
@@ -58,7 +70,7 @@ const Register = (props) => {
         <TextInput onChangeText = {(e) => valueChanged('email', e)} returnKeyType = { "next" }  style={registerStyle.inputStyle} placeholder='Email'/>
         <TextInput maxLength={6} onChangeText = {(e) => valueChanged('securePin', e)} returnKeyType = { "next" }  keyboardType='numeric' style={registerStyle.inputStyle} placeholder='Secure Pin' secureTextEntry={true}/>
         {status && <Text style={{fontSize: 26, color: 'darkgreen'}}>Registered Successfully</Text>}
-        <Button onPress={props.setUser} buttonStyle={{marginTop: 20, backgroundColor: 'green'}} title="Let's start saving"/>
+        <Button onPress={register} buttonStyle={{marginTop: 20, backgroundColor: 'green'}} title="Let's start saving"/>
     </View>
     );
 }

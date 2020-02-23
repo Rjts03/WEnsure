@@ -8,6 +8,7 @@ const config = {
     baseURL: uri,
     // baseURL: 'localhost:8081/api/',
     prodURL: '',
+    uid: '999988887777'
 }
 
 export default config

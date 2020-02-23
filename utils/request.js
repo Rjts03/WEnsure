@@ -44,11 +44,7 @@ const delWithAxios = (endPoint, params=null) => {
 // GET
 export const getAllPoliciesByUser = async (uid, setS, setE, setL) => {
     const r = await getWithAxios('policy', {uid})
-    if (r.length > 0) {
-        setS(r);
-    }else {
-        setE(r)
-    }
+    setS(r);
     setL(false)
 }
 

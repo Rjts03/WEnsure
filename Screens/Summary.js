@@ -2,6 +2,8 @@ import React,  {Component, useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import { Button} from 'react-native-elements';
 import { getUserBalance } from '../utils/request';
+import config from '../config'
+const {uid} = config
 
 const summaryStyle = StyleSheet.create({
     container: {
@@ -35,7 +37,6 @@ const Summary = (props) => {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        const uid = '999988887777'
         getUserBalance(uid, setData, setError, setIsLoading)
     }, [])
 

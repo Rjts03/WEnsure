@@ -3,6 +3,8 @@ import { View, Text, FlatList} from 'react-native'
 import PolicyCard from '../Components/PolicyCard'
 import FloatingButton from '../Components/FloatingButton'
 import { getAllPoliciesByUser } from '../utils/request'
+import config from '../config'
+const {uid} = config
 
 const Home = props => {
     const {navigation} = props;
@@ -12,13 +14,16 @@ const Home = props => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        getAllPoliciesByUser('999988887777', setPolicies, setError, setIsLoading)
+        getAllPoliciesByUser(uid, setPolicies, setError, setIsLoading)
     }, [])
 
     const renderCard = ({item, index}) => {
         return <PolicyCard info={item} index={index} {...props} />;
     }
 
+    const navigateToAddPolicy = async () => {
+        navigation.navigate('Add Policy', {uid})
+    }
     if (isLoading) {
         return <Text>Loading...</Text>
     }else if (error) {
@@ -32,7 +37,7 @@ const Home = props => {
                 keyExtractor={(item, index) => `${item.id}_${index}`}
                 numColumns={2}
             />
-            <FloatingButton onPress={() => navigation.navigate('Add Policy', {uid: '999988887777'})} />
+            <FloatingButton onPress={navigateToAddPolicy} />
         </View>
     )
 }
