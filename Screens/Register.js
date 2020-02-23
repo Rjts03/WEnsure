@@ -58,7 +58,7 @@ const Register = (props) => {
         <TextInput onChangeText = {(e) => valueChanged('email', e)} returnKeyType = { "next" }  style={registerStyle.inputStyle} placeholder='Email'/>
         <TextInput maxLength={6} onChangeText = {(e) => valueChanged('securePin', e)} returnKeyType = { "next" }  keyboardType='numeric' style={registerStyle.inputStyle} placeholder='Secure Pin' secureTextEntry={true}/>
         {status && <Text style={{fontSize: 26, color: 'darkgreen'}}>Registered Successfully</Text>}
-        <Button buttonStyle={{marginTop: 20, backgroundColor: 'green'}} title="Let's start saving"/>
+        <Button onPress={props.setUser} buttonStyle={{marginTop: 20, backgroundColor: 'green'}} title="Let's start saving"/>
     </View>
     );
 }
