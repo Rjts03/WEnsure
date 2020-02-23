@@ -85,4 +85,14 @@ export const registerUser = async (body, setS, setE, setL) => {
     setL(false)
 }
 
+export const makePayment = async (body, setS, setE, setL) => {
+    const r = await postWithAxios('addmoney', body)
+    if(r) {
+        setS(true)
+    }else {
+        setE(true)
+    }
+    setL(false)
+}
+
 // DELETE

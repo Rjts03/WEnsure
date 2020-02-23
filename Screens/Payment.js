@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import {Button} from 'react-native-elements';
+import { makePayment } from '../utils/request';
 
 const paymentStyle = StyleSheet.create({
     container: {
@@ -20,11 +21,35 @@ const paymentStyle = StyleSheet.create({
     }
 })
 
-const Payment = (props) => {
+const Payment = ({navigation, route}) => {
+
+    const [money, setMoney] = useState(0);
+    const [status, setStatus] = useState(false);
+    const [error, setError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const addMoney = () => {
+        setIsLoading(true)
+        const date = new Date()
+        const body = {
+            uid: route.params.uid,
+            policy_id: route.params.pid,
+            amount: money,
+            type: 'CREDIT',
+            date: date.toString()
+        }
+        makePayment(body, setStatus, setError, setIsLoading)
+    }
+
+    useEffect(() => {
+        if(status)
+            navigation.navigate('Home')
+    }, [status])
+
     return (
         <View style={paymentStyle.container}>
-            <TextInput style={paymentStyle.inputStyle} maxLength={6}  placeholder='Add Money' />
-            <Button buttonStyle={{marginTop: 30, backgroundColor: 'green'}} title='pay money'></Button>
+            <TextInput value={money} onChangeText={text => setMoney(parseInt(text))} style={paymentStyle.inputStyle} maxLength={6}  placeholder='Add Money' />
+            <Button onPress={addMoney} buttonStyle={{marginTop: 30, backgroundColor: 'green'}} title='pay money'></Button>
         </View>
     )
 }
