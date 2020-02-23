@@ -62,6 +62,16 @@ export const getPolicyById = async (pid, setS, setE, setL) => {
     setL(false)
 }
 
+export const getUserBalance = async (uid, setS, setE, setL) => {
+    const r = await getWithAxios('balance', {uid})
+    if(Object.keys(r).length > 0) {
+        setS(r)
+    }else {
+        setE(r)
+    }
+    setL(false)
+}
+
 
 // POST
 

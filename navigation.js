@@ -49,6 +49,7 @@ const HomeStack = ({navigation}) => (
             name="Home"
             component={Home}
             options={{
+                headerTitle: "WEnsure",
                 headerRight: ({tintColor}) => renderRightButton(tintColor, navigation),
                 ...gradientHeader,
             }}

@@ -1,6 +1,7 @@
-import React,  {Component, useState} from 'react';
+import React,  {Component, useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import { Button} from 'react-native-elements';
+import { getUserBalance } from '../utils/request';
 
 const summaryStyle = StyleSheet.create({
     container: {
@@ -29,19 +30,33 @@ const summaryStyle = StyleSheet.create({
 const Summary = (props) => {
     const {navigation} = props
 
-    const data = [{InsuranceProvider: 'abcd', amount_saved: 29},
-    {InsuranceProvider: 'abcd', amount_saved: 29}]
+    const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState(null)
 
-    const total_saved = 350;
+    useEffect(() => {
+        const uid = '999988887777'
+        getUserBalance(uid, setData, setError, setIsLoading)
+    }, [])
 
+    const getTotalBalance = () => {
+        const bal = Object.keys(data).map(item => data[item].balance)
+        return bal.reduce((a, b) => a+b, 0)
+    }
+
+    if(isLoading) {
+        return <Text>Loading...</Text>
+    }else if(error) {
+        return <Text>{error}</Text>
+    }
     return (
         <View style={summaryStyle.container}>
             {
-                data.map((item, index) => {
+                Object.keys(data).map((item, index) => {
                     return (
                         <View style={summaryStyle.savedMoney}>
-                            <Text>{item.InsuranceProvider}</Text>
-                            <Text>{item.amount_saved}</Text>
+                            <Text>{item}</Text>
+                            <Text>{data[item].balance}</Text>
                         </View>
                     );
                 })
@@ -50,7 +65,7 @@ const Summary = (props) => {
             </View>
             <View style={summaryStyle.savedMoney}>
                 <Text>Total amount saved</Text>
-                <Text>{total_saved}</Text>
+                <Text>{getTotalBalance()}</Text>
             </View>
             <Button onPress={() => navigation.navigate('Withdraw Money')} buttonStyle={summaryStyle.button} title="Withdraw before time"/>
         </View>
