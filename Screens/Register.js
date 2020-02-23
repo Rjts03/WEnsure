@@ -3,6 +3,7 @@ import { Button} from 'react-native-elements';
 import {View, StyleSheet, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
+import { registerUser } from '../utils/request';
 
 const registerStyle = StyleSheet.create({
     inputStyle: {
@@ -15,13 +16,43 @@ const registerStyle = StyleSheet.create({
     }
 })
 
-export function RegisterScreen(props){
+const Register = (props) => {
 
     const [data, setData] = useState({});
+    const [status, setStatus] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(false)
 
     let valueChanged = (type, e) => {
         setData({...data, [type]: e});
     }
+
+    const register = () => {
+        setIsLoading(true)
+        const body = {
+            name: data.name,
+            uid: data.aadhar,
+            occupation: data.occupation,
+            organization: data.organization,
+            secure_pin: data.securePin,
+            contact: {
+                phone_no: data.mobile,
+                address: data.address || 'n/a'
+            },
+            insurance_reason: data.insuranceReason || 'n/a',
+            death_wish: data.deathWish || 'n/a',
+            email: data.email,
+            password: data.password || data.securePin
+        }
+
+        registerUser(body)
+    }
+
+    useEffect(() => {
+        if(status){
+            navigation.navigate('Login')
+        }
+    }, [status])
 
     return (
       <View style={{ flex: 1, width: '100%', alignItems: "center", justifyContent: 'center',  paddingTop: 60, paddingLeft: 20, paddingRight: 20 }}>
@@ -32,7 +63,9 @@ export function RegisterScreen(props){
         <TextInput maxLength={10} onChangeText = {(e) => valueChanged('mobile', e)} returnKeyType = { "next" }  keyboardType='numeric' style={registerStyle.inputStyle} placeholder='Mobile No.'/>
         <TextInput onChangeText = {(e) => valueChanged('email', e)} returnKeyType = { "next" }  style={registerStyle.inputStyle} placeholder='Email'/>
         <TextInput maxLength={6} onChangeText = {(e) => valueChanged('securePin', e)} returnKeyType = { "next" }  keyboardType='numeric' style={registerStyle.inputStyle} placeholder='Secure Pin' secureTextEntry={true}/>
-        <Button buttonStyle={{marginTop: 20}} title="Let's start saving"/>
+        <Button buttonStyle={{marginTop: 20, backgroundColor: 'green'}} title="Let's start saving"/>
     </View>
     );
 }
+
+export default Register

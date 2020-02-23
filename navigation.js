@@ -67,6 +67,7 @@ const HomeStack = ({navigation}) => (
         <Stack.Screen
             name="Add Policy"
             component={AddPolicy}
+            initialParams={{uid: null}}
             options={{...gradientHeader,}}
         />
         <Stack.Screen

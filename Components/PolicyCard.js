@@ -5,9 +5,9 @@ const PolicyCard = props => {
     const {info, index, navigation} = props;
 
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('Insurance Policy Detail', {id: '4343'})} style={styles.cardContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate('Insurance Policy Detail', {uid: info.uid, pid: info.policy_id})} style={styles.cardContainer}>
             <View style={styles.cardTop}>
-                <Text>23298934</Text>
+                <Text>{info.policy_id}</Text>
                 <Text>Created On: 01/01/2020</Text>
             </View>
 

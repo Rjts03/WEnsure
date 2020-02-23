@@ -1,20 +1,34 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {Button} from 'react-native-elements';
+import { getPolicyById } from '../utils/request';
 
 const PolicyDetail = props => {
     const {navigation, route} = props;
     
+    const [details, setDetails] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState(null)
+
+    useEffect(() => {
+        getPolicyById(route.params.pid, setDetails, setError, setIsLoading)
+    }, [])
+
+    if (isLoading) {
+        return <Text>loading...</Text>
+    }else if(error) {
+        return <Text>{error}</Text>
+    }
     return (
         <View style={{flex: 1, margin: 12}}>
             <View style={styles.detailsContainer}>
                 <Text style={styles.title}>
                     {'Policy Number: \t'}
-                    <Text style={styles.value}>48309732478598475</Text>
+                    <Text style={styles.value}>{details.policy_id}</Text>
                 </Text>
                 <Text style={styles.title}>
                     {'Policy Type: \t'}
-                    <Text style={styles.value}>Health</Text>
+                    <Text style={styles.value}>{details.insurance_type}</Text>
                 </Text>
                 <Text style={styles.title}>
                     {'Policy Provider: \t'}
@@ -22,11 +36,11 @@ const PolicyDetail = props => {
                 </Text>
                 <Text style={styles.title}>
                     {'Premium Type: \t'}
-                    <Text style={styles.value}>Annual</Text>
+                    <Text style={styles.value}>{details.premium_type}</Text>
                 </Text>
                 <Text style={styles.title}>
                     {'Premium Date: \t'}
-                    <Text style={styles.value}>31/12/2020</Text>
+                    <Text style={styles.value}>{details.premium_payment_date}</Text>
                 </Text>
             </View>
 

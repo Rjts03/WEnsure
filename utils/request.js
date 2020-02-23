@@ -3,11 +3,22 @@ import config from '../config'
 
 const {baseURL, ProdURL} = config
 
-const getWithAxios = (endPoint, param=null) => {
+const getWithAxios = (endPoint, params=null) => {
+    let paramstr = '';
+    if (params) {
+        const paramKeys = Object.keys(params)
+        paramKeys.forEach((param, index) => {
+            paramstr += param+'='+params[param];
+            if (paramKeys.length > 1 && index < paramKeys.length - 1) paramstr += '&'
+        })
+    }
+    const url = `${baseURL}${endPoint}?${paramstr}`
     return axios
-            .get(`${baseURL}${endPoint}/${param}`)
+            .get(url)
             .then(res => res.data)
-            .catch(e => e);
+            .catch(e => {
+                return e
+            });
 };
 
 const postWithAxios = (endPoint, body=null) => {
@@ -17,22 +28,61 @@ const postWithAxios = (endPoint, body=null) => {
             .catch(e => e)
 }
 
-const delWithAxios = (endPoint, param=null) => {
+const delWithAxios = (endPoint, params=null) => {
+    let paramstr = '';
+    if (params)
+    Object.keys(params).forEach(param => {
+        paramstr += param+'='+params[param]+',';
+    })
     return axios
-            .delete(`${baseURL}${endPoint}/${param}`)
+            .delete(`${baseURL}${endPoint}/${paramstr}`)
             .then(res => res.data)
             .catch(e => e)
 }
 
 
 // GET
-export const getAllPoliciesByUser = (uid) => {
+export const getAllPoliciesByUser = async (uid, setS, setE, setL) => {
+    const r = await getWithAxios('policy', {uid})
+    if (r.length > 0) {
+        setS(r);
+    }else {
+        setE(r)
+    }
+    setL(false)
+}
 
+export const getPolicyById = async (pid, setS, setE, setL) => {
+    const r = await getWithAxios('policy', {policy_id: pid});
+    if (r.length === 1) {
+        setS(r[0]);
+    }else {
+        setE(r)
+    }
+    setL(false)
 }
 
 
 // POST
 
+export const createPolicy = async (body, setS, setE, setL) => {
+    const r = await postWithAxios('policy', body)
+    if (r) {
+        setS(true)
+    }else {
+        setE(true)
+    }
+    setL(false)
+}
 
+export const registerUser = async (body, setS, setE, setL) => {
+    const r = await postWithAxios('user', body)
+    if(r) {
+        setS(true)
+    }else {
+        setE(true)
+    }
+    setL(false)
+}
 
 // DELETE
