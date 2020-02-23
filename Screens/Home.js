@@ -12,7 +12,7 @@ const Home = props => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        getAllPoliciesByUser('111122223333', setPolicies, setError, setIsLoading)
+        getAllPoliciesByUser('999988887777', setPolicies, setError, setIsLoading)
     }, [])
 
     const renderCard = ({item, index}) => {
@@ -32,7 +32,7 @@ const Home = props => {
                 keyExtractor={(item, index) => `${item.id}_${index}`}
                 numColumns={2}
             />
-            <FloatingButton onPress={() => navigation.navigate('Add Policy', {uid: '111122223333'})} />
+            <FloatingButton onPress={() => navigation.navigate('Add Policy', {uid: '999988887777'})} />
         </View>
     )
 }
